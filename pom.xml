@@ -19,6 +19,8 @@
     <properties>
         <cxf.version>2.7.18</cxf.version>
         <spring.version>3.1.2.RELEASE</spring.version>
+        <!--Latest version. Frozen project-->
+        <psimi.version>1.8.5</psimi.version>
 
         <bundle.namespace>org.hupo.psi.mi.psicquic.wsclient</bundle.namespace>
         <bundle.symbolicName>org.hupo.psi.mi.psicquic.wsclient</bundle.symbolicName>
@@ -227,7 +229,7 @@
         <dependency>
             <groupId>psidev.psi.mi</groupId>
             <artifactId>psimitab</artifactId>
-            <version>1.8.5</version>
+            <version>${psimi.version}</version>
         </dependency>
 
         <dependency>
@@ -324,26 +326,6 @@
             <artifactId>cxf-bundle</artifactId>
             <version>${cxf.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>javax.wsdl</groupId>-->
-            <!--<artifactId>com.springsource.javax.wsdl</artifactId>-->
-            <!--<version>1.6.1</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.xml</groupId>-->
-            <!--<artifactId>com.springsource.org.apache.xml.security</artifactId>-->
-            <!--<version>1.4.2</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.objectweb.asm</groupId>-->
-            <!--<artifactId>com.springsource.org.objectweb.asm</artifactId>-->
-            <!--<version>3.2.0</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.bouncycastle</groupId>-->
-            <!--<artifactId>com.springsource.org.bouncycastle.jce</artifactId>-->
-            <!--<version>1.39.0</version>-->
-        <!--</dependency>-->
 
         <!-- saxon dependency -->
         <dependency>
