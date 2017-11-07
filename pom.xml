@@ -21,6 +21,7 @@
         <spring.version>3.1.2.RELEASE</spring.version>
         <!--Latest version. Frozen project-->
         <psimi.version>1.8.5</psimi.version>
+        <psicquic.solr.version>1.2.6</psicquic.solr.version>
 
         <bundle.namespace>org.hupo.psi.mi.psicquic.wsclient</bundle.namespace>
         <bundle.symbolicName>org.hupo.psi.mi.psicquic.wsclient</bundle.symbolicName>
@@ -237,7 +238,7 @@
         <dependency>
             <groupId>org.hupo.psi.mi.psicquic</groupId>
             <artifactId>psicquic-solr</artifactId>
-            <version>1.2.3-SNAPSHOT</version>
+            <version>${psicquic.solr.version}</version>
         </dependency>
 
         <!-- spring -->
