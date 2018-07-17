@@ -5,7 +5,7 @@
     <artifactId>psicquic-client</artifactId>
     <packaging>bundle</packaging>
 
-    <version>1.5.5-SNAPSHOT</version>
+    <version>1.5.6-SNAPSHOT</version>
 
     <name>PSI :: PSICQUIC Client</name>
 
@@ -20,8 +20,8 @@
         <cxf.version>2.4.3</cxf.version>
         <spring.version>3.1.2.RELEASE</spring.version>
         <!--Latest version. Frozen project-->
-        <psimi.version>1.8.5</psimi.version>
-        <psicquic.solr.version>1.2.6</psicquic.solr.version>
+        <psimi.version>1.8.6-SNAPSHOT</psimi.version>
+        <psicquic.solr.version>1.2.7-SNAPSHOT</psicquic.solr.version>
 
         <bundle.namespace>org.hupo.psi.mi.psicquic.wsclient</bundle.namespace>
         <bundle.symbolicName>org.hupo.psi.mi.psicquic.wsclient</bundle.symbolicName>
