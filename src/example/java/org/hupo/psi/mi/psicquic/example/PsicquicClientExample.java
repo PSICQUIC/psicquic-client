@@ -19,6 +19,7 @@ package org.hupo.psi.mi.psicquic.example;
 import org.hupo.psi.mi.psicquic.wsclient.UniversalPsicquicClient;
 import org.hupo.psi.mi.psicquic.wsclient.result.MitabSearchResult;
 import psidev.psi.mi.tab.model.BinaryInteraction;
+import psidev.psi.mi.tab.model.builder.PsimiTabVersion;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class PsicquicClientExample {
     public static void main(String[] args) throws Exception {
 
         // change the endpoint address as needed
-        UniversalPsicquicClient client = new UniversalPsicquicClient("http://www.ebi.ac.uk/Tools/webservices/psicquic/intact/webservices/psicquic");
+        UniversalPsicquicClient client = new UniversalPsicquicClient("http://www.ebi.ac.uk/Tools/webservices/psicquic/intact/webservices/psicquic", PsimiTabVersion.v2_8);
 
         MitabSearchResult searchResult = client.getByQuery("brca2", 0, 200);
         List<BinaryInteraction> interactions = searchResult.getData();
@@ -43,5 +44,6 @@ public class PsicquicClientExample {
             System.out.println("First Authors for Interaction No. " + count + ": " +
                     interaction.getAuthors().get(0).getName());
         }
+
     }
 }

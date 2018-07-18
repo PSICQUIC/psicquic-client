@@ -35,6 +35,7 @@ public abstract class AbstractMitabPsicquicClient extends AbstractPsicquicClient
     private static final String RETURN_TYPE_25 = "psi-mi/tab25";
     private static final String RETURN_TYPE_26 = "psi-mi/tab26";
     private static final String RETURN_TYPE_27 = "psi-mi/tab27";
+    private static final String RETURN_TYPE_28 = "psi-mi/tab28";
 
     protected PsimiTabVersion version = PsimiTabVersion.v2_5;
 
@@ -157,8 +158,11 @@ public abstract class AbstractMitabPsicquicClient extends AbstractPsicquicClient
             if (version.equals(PsimiTabVersion.v2_6)){
                 RETURN_TYPE = RETURN_TYPE_26;
             }
-            else if(version.equals(PsimiTabVersion.v2_7)){
+            else if (version.equals(PsimiTabVersion.v2_7)){
                 RETURN_TYPE = RETURN_TYPE_27;
+            }
+            else if (version.equals(PsimiTabVersion.v2_8)){
+                RETURN_TYPE = RETURN_TYPE_28;
             }
         }
         return RETURN_TYPE;

@@ -17,7 +17,7 @@
     </scm>
 
     <properties>
-        <cxf.version>2.4.3</cxf.version>
+        <cxf.version>2.6.3</cxf.version>
         <spring.version>3.1.2.RELEASE</spring.version>
         <!--Latest version. Frozen project-->
         <psimi.version>1.8.6-SNAPSHOT</psimi.version>
@@ -86,7 +86,7 @@
                             <sourceRoot>${basedir}/target/generated/java</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>${basedir}/src/main/wsdl/psicquic.wsdl</wsdl>
+                                    <wsdl>${basedir}/src/main/wsdl/psicquic11.wsdl</wsdl>
                                     <extraargs>
                                         <extraarg>-b</extraarg>
                                         <extraarg>${basedir}/src/main/wsdl/binding.xjb</extraarg>
