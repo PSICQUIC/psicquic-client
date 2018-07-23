@@ -15,10 +15,7 @@
  */
 package org.hupo.psi.mi.psicquic.wsclient;
 
-import org.hupo.psi.mi.psicquic.DbRef;
-import org.hupo.psi.mi.psicquic.QueryResponse;
-import org.hupo.psi.mi.psicquic.RequestInfo;
-import org.hupo.psi.mi.psicquic.ResultInfo;
+import org.hupo.psi.mi.psicquic.*;
 import org.hupo.psi.mi.psicquic.wsclient.result.MitabSearchResult;
 import psidev.psi.mi.tab.model.builder.PsimiTabVersion;
 
@@ -149,6 +146,30 @@ public abstract class AbstractMitabPsicquicClient extends AbstractPsicquicClient
         }
 
         return createSearchResult(response);
+    }
+
+    public String getVersion() throws  PsicquicClientException {
+        try {
+            return getService().getVersion();
+        } catch (Exception e) {
+            throw new PsicquicClientException("There was a problem running the service", e);
+        }
+    }
+
+    public List<String> getSupportedReturnTypes() throws PsicquicClientException {
+        try {
+            return getService().getSupportedReturnTypes();
+        } catch (Exception e) {
+            throw new PsicquicClientException("There was a problem running the service", e);
+        }
+    }
+
+    public List<Property> getProperties() throws PsicquicClientException {
+        try {
+            return getService().getProperties();
+        } catch (Exception e) {
+            throw new PsicquicClientException("There was a problem running the service", e);
+        }
     }
 
     private String processMitabVersion() {

@@ -16,6 +16,7 @@
 package org.hupo.psi.mi.psicquic.example;
 
 
+import org.hupo.psi.mi.psicquic.Property;
 import org.hupo.psi.mi.psicquic.wsclient.UniversalPsicquicClient;
 import org.hupo.psi.mi.psicquic.wsclient.result.MitabSearchResult;
 import psidev.psi.mi.tab.model.BinaryInteraction;
@@ -31,7 +32,7 @@ public class PsicquicClientExample {
     public static void main(String[] args) throws Exception {
 
         // change the endpoint address as needed
-        UniversalPsicquicClient client = new UniversalPsicquicClient("http://www.ebi.ac.uk/Tools/webservices/psicquic/intact/webservices/psicquic", PsimiTabVersion.v2_8);
+        UniversalPsicquicClient client = new UniversalPsicquicClient("http://www.ebi.ac.uk/Tools/webservices/psicquic/intact/webservices/psicquic", PsimiTabVersion.v2_7);
 
         MitabSearchResult searchResult = client.getByQuery("brca2", 0, 200);
         List<BinaryInteraction> interactions = searchResult.getData();
@@ -45,5 +46,12 @@ public class PsicquicClientExample {
                     interaction.getAuthors().get(0).getName());
         }
 
+        System.out.println("\n----------------------\n");
+        System.out.println("PSICQUIC Implementation Version: " + client.getVersion());
+        System.out.println("Supported Return Types: " + client.getSupportedReturnTypes().toString());
+        System.out.println("Properties:");
+        for (Property property : client.getProperties()) {
+            System.out.println(property.getKey() + " : " + property.getValue());
+        }
     }
 }
