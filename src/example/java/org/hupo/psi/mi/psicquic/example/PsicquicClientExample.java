@@ -48,8 +48,8 @@ public class PsicquicClientExample {
 
         System.out.println("\n----------------------\n");
         System.out.println("PSICQUIC Implementation Version: " + client.getVersion());
-        System.out.println("Supported Return Types: " + client.getSupportedReturnTypes().toString());
-        System.out.println("Properties:");
+        System.out.println("Supported SOAP Return Types: " + client.getSupportedReturnTypes().toString());
+        System.out.println("\nProperties:");
         for (Property property : client.getProperties()) {
             System.out.println(property.getKey() + " : " + property.getValue());
         }
