@@ -15,10 +15,7 @@
  */
 package org.hupo.psi.mi.psicquic.wsclient;
 
-import org.hupo.psi.mi.psicquic.DbRef;
-import org.hupo.psi.mi.psicquic.QueryResponse;
-import org.hupo.psi.mi.psicquic.RequestInfo;
-import org.hupo.psi.mi.psicquic.ResultInfo;
+import org.hupo.psi.mi.psicquic.*;
 import org.hupo.psi.mi.psicquic.wsclient.result.MitabSearchResult;
 import psidev.psi.mi.tab.model.builder.PsimiTabVersion;
 
@@ -35,6 +32,7 @@ public abstract class AbstractMitabPsicquicClient extends AbstractPsicquicClient
     private static final String RETURN_TYPE_25 = "psi-mi/tab25";
     private static final String RETURN_TYPE_26 = "psi-mi/tab26";
     private static final String RETURN_TYPE_27 = "psi-mi/tab27";
+    private static final String RETURN_TYPE_28 = "psi-mi/tab28";
 
     protected PsimiTabVersion version = PsimiTabVersion.v2_5;
 
@@ -150,6 +148,30 @@ public abstract class AbstractMitabPsicquicClient extends AbstractPsicquicClient
         return createSearchResult(response);
     }
 
+    public String getVersion() throws  PsicquicClientException {
+        try {
+            return getService().getVersion();
+        } catch (Exception e) {
+            throw new PsicquicClientException("There was a problem running the service", e);
+        }
+    }
+
+    public List<String> getSupportedReturnTypes() throws PsicquicClientException {
+        try {
+            return getService().getSupportedReturnTypes();
+        } catch (Exception e) {
+            throw new PsicquicClientException("There was a problem running the service", e);
+        }
+    }
+
+    public List<Property> getProperties() throws PsicquicClientException {
+        try {
+            return getService().getProperties();
+        } catch (Exception e) {
+            throw new PsicquicClientException("There was a problem running the service", e);
+        }
+    }
+
     private String processMitabVersion() {
         String RETURN_TYPE = RETURN_TYPE_25;
 
@@ -157,8 +179,11 @@ public abstract class AbstractMitabPsicquicClient extends AbstractPsicquicClient
             if (version.equals(PsimiTabVersion.v2_6)){
                 RETURN_TYPE = RETURN_TYPE_26;
             }
-            else if(version.equals(PsimiTabVersion.v2_7)){
+            else if (version.equals(PsimiTabVersion.v2_7)){
                 RETURN_TYPE = RETURN_TYPE_27;
+            }
+            else if (version.equals(PsimiTabVersion.v2_8)){
+                RETURN_TYPE = RETURN_TYPE_28;
             }
         }
         return RETURN_TYPE;

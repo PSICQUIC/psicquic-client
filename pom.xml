@@ -5,7 +5,7 @@
     <artifactId>psicquic-client</artifactId>
     <packaging>bundle</packaging>
 
-    <version>1.5.4</version>
+    <version>1.6.0</version>
 
     <name>PSI :: PSICQUIC Client</name>
 
@@ -17,11 +17,12 @@
     </scm>
 
     <properties>
-        <cxf.version>2.7.18</cxf.version>
+        <cxf.version>2.6.3</cxf.version>
         <spring.version>3.1.2.RELEASE</spring.version>
         <!--Latest version. Frozen project-->
-        <psimi.version>1.8.5</psimi.version>
-        <psicquic.solr.version>1.2.6</psicquic.solr.version>
+        <psimi.version>1.8.6</psimi.version>
+        <psicquic.solr.version>1.4.0</psicquic.solr.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <bundle.namespace>org.hupo.psi.mi.psicquic.wsclient</bundle.namespace>
         <bundle.symbolicName>org.hupo.psi.mi.psicquic.wsclient</bundle.symbolicName>
@@ -31,7 +32,7 @@
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>
 
-         <resources>
+        <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
@@ -57,6 +58,7 @@
                     <!-- see goals wiki page for configuration options -->
                     <!--Whether to allow untracked files when checking if the working tree is clean.-->
                     <allowUntracked>true</allowUntracked>
+                    <noDeploy>true</noDeploy>
                     <username>${git.user}</username>
                     <password>${git.password}</password>
                     <pullMaster>true</pullMaster>
@@ -69,38 +71,39 @@
             <plugin>
                 <groupId>org.ops4j</groupId>
                 <artifactId>maven-pax-plugin</artifactId>
-                <version>1.5</version>
                 <!--
                  | enable improved OSGi compilation support for the bundle life-cycle.
                  | to switch back to the standard bundle life-cycle, move this setting
                  | down to the maven-bundle-plugin section
                 -->
                 <extensions>true</extensions>
+                <version>1.6.0</version>
             </plugin>
             <plugin>
-                 <!--
-                  | the following instructions build a simple set of public/private classes into an OSGi bundle
-                 -->
-                 <groupId>org.apache.felix</groupId>
-                 <artifactId>maven-bundle-plugin</artifactId>
-                 <configuration>
-                     <instructions>
-                         <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
-                         <Bundle-Version>${project.version}</Bundle-Version>
-                         <!--
-                          | assume public classes are in the top package, and private classes are under ".internal"
-                         -->
-                         <Export-Package>
-                             !${bundle.namespace}.internal.*,${bundle.namespace}.*,org.hupo.psi.mi.psicquic.*"
-                         </Export-Package>
-                         <Private-Package>${bundle.namespace}.internal.*;javax.xml.namespace.*</Private-Package>
-                         <!--
-                          | each module can override these defaults in their osgi.bnd file
-                         -->
-                         <_include>-osgi.bnd</_include>
-                     </instructions>
-                 </configuration>
-             </plugin>
+                <!--
+                 | the following instructions build a simple set of public/private classes into an OSGi bundle
+                -->
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>4.0.0</version>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <!--
+                         | assume public classes are in the top package, and private classes are under ".internal"
+                        -->
+                        <Export-Package>
+                            !${bundle.namespace}.internal.*,${bundle.namespace}.*,org.hupo.psi.mi.psicquic.*"
+                        </Export-Package>
+                        <Private-Package>${bundle.namespace}.internal.*;javax.xml.namespace.*</Private-Package>
+                        <!--
+                         | each module can override these defaults in their osgi.bnd file
+                        -->
+                        <_include>-osgi.bnd</_include>
+                    </instructions>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.cxf</groupId>
@@ -114,11 +117,11 @@
                             <sourceRoot>${basedir}/target/generated/java</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>${basedir}/src/main/wsdl/psicquic.wsdl</wsdl>
+                                    <wsdl>${basedir}/src/main/wsdl/psicquic11.wsdl</wsdl>
                                     <extraargs>
-                                            <extraarg>-b</extraarg>
-                                            <extraarg>${basedir}/src/main/wsdl/binding.xjb</extraarg>
-                                          </extraargs>
+                                        <extraarg>-b</extraarg>
+                                        <extraarg>${basedir}/src/main/wsdl/binding.xjb</extraarg>
+                                    </extraargs>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>
@@ -128,12 +131,12 @@
                     </execution>
                 </executions>
                 <dependencies>
-                	<dependency>
-                  		<groupId>xerces</groupId>
-                  		<artifactId>xercesImpl</artifactId>
-                  		<version>2.8.1</version>
-               		</dependency>
-            	</dependencies>
+                    <dependency>
+                        <groupId>xerces</groupId>
+                        <artifactId>xercesImpl</artifactId>
+                        <version>2.8.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
@@ -161,7 +164,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
+                <version>2.9.1</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -187,7 +190,7 @@
                     <version>1.1</version>
                     <scope>provided</scope>
                 </dependency>
-                 <dependency>
+                <dependency>
                     <groupId>org.apache.geronimo.specs</groupId>
                     <artifactId>geronimo-annotation_1.0_spec</artifactId>
                     <version>1.1.1</version>
@@ -218,15 +221,6 @@
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
-        </profile>
-        <profile>
-            <id>disable-java8-doclint</id>
-            <activation>
-                <jdk>[1.8,)</jdk>
-            </activation>
-            <properties>
-                <additionalparam>-Xdoclint:none</additionalparam>
-            </properties>
         </profile>
     </profiles>
 
@@ -314,23 +308,43 @@
         </dependency>
 
         <dependency>
-            <groupId>com.sun.xml.fastinfoset</groupId>
-            <artifactId>FastInfoset</artifactId>
+            <groupId>com.sun.xml</groupId>
+            <artifactId>com.springsource.com.sun.xml.fastinfoset</artifactId>
             <version>1.2.2</version>
         </dependency>
 
         <!-- TODO search the servicemix one-->
         <dependency>
-              <groupId>org.apache.servicemix.specs</groupId>
-              <artifactId>org.apache.servicemix.specs.stax-api-1.0</artifactId>
-              <version>2.0.0</version>
-            </dependency>
+            <groupId>org.apache.servicemix.specs</groupId>
+            <artifactId>org.apache.servicemix.specs.stax-api-1.0</artifactId>
+            <version>2.0.0</version>
+        </dependency>
 
         <!-- Apache CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-bundle</artifactId>
             <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.wsdl</groupId>
+            <artifactId>com.springsource.javax.wsdl</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xml</groupId>
+            <artifactId>com.springsource.org.apache.xml.security</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.objectweb.asm</groupId>
+            <artifactId>com.springsource.org.objectweb.asm</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>com.springsource.org.bouncycastle.jce</artifactId>
+            <version>1.39.0</version>
         </dependency>
 
         <!-- saxon dependency -->
@@ -358,7 +372,20 @@
             <id>nexus-ebi-snapshot-repo</id>
             <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
         </repository>
+        <repository>
+            <id>intact.nexus</id>
+            <name>IntAct Nexus</name>
+            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/groups/public/</url>
+        </repository>
     </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>intact.nexus</id>
+            <name>IntAct Nexus</name>
+            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <distributionManagement>
         <!-- EBI repo -->
@@ -375,5 +402,4 @@
             <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-
 </project>

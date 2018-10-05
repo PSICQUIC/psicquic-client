@@ -16,7 +16,7 @@
                    targetNamespace="http://psi.hupo.org/mi/psicquic">
 
             <xs:import namespace="http://psi.hupo.org/mi/mif"
-                       schemaLocation="http://psidev.cvs.sourceforge.net/viewvc/psidev/psi/mi/rel25/src/MIF254.xsd"/>
+                       schemaLocation="https://raw.githubusercontent.com/HUPO-PSI/miXML/master/2.5/src/MIF254.xsd"/>
 
             <!-- types -->
 
@@ -41,6 +41,13 @@
 
             <xs:element name="getSupportedDbAcs" type="psq:getSupportedDbAcs"/>
             <xs:element name="getSupportedDbAcsResponse" type="psq:getSupportedDbAcsResponse"/>
+
+            <!-- getPropery methods, added for 1.2 -->
+            <xs:element name="getProperty" type="psq:getProperty"/>
+            <xs:element name="getPropertyResponse" type="psq:getPropertyResponse"/>
+
+            <xs:element name="getProperties" type="psq:getProperties"/>
+            <xs:element name="getPropertiesResponse" type="psq:getPropertiesResponse"/>
 
             <!-- in/out types -->
 
@@ -147,6 +154,28 @@
                 </xs:sequence>
             </xs:complexType>
 
+            <xs:complexType name="getProperty">
+                <xs:sequence>
+                    <xs:element name="property" nillable="false" type="xs:string" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getPropertyResponse">
+                <xs:sequence>
+                    <xs:element name="return" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getProperties">
+                <xs:sequence/>
+            </xs:complexType>
+
+            <xs:complexType name="getPropertiesResponse">
+                <xs:sequence>
+                    <xs:element name="return" type="psq:property" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType>
+
             <!-- other types -->
 
             <xs:element name="psicquicFault">
@@ -215,6 +244,13 @@
             <xs:complexType name="dbRefList">
                 <xs:sequence>
                     <xs:element maxOccurs="unbounded" name="dbRef" type="psq:dbRef"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="property">
+                <xs:sequence>
+                    <xs:element name="key" type="xs:string"/>
+                    <xs:element name="value" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>
 
@@ -299,6 +335,22 @@
         <part element="psq:getByQueryResponse" name="queryResponse"/>
     </message>
 
+    <message name="getProperty">
+        <part element="psq:getProperty" name="propertyName"/>
+    </message>
+
+    <message name="getPropertyResponse">
+        <part element="psq:getPropertyResponse" name="propertyResponse"/>
+    </message>
+
+    <message name="getProperties">
+        <part element="psq:getProperties" name="propertyNames"/>
+    </message>
+
+    <message name="getPropertiesResponse">
+        <part element="psq:getPropertiesResponse" name="propertyNamesResponse"/>
+    </message>
+
     <!-- PORT TYPE -->
 
     <portType name="psicquicService">
@@ -360,6 +412,16 @@
             <fault message="psq:notSupportedMethodException" name="notSupportedMethodException"/>
             <fault message="psq:notSupportedTypeException" name="notSupportedTypeException"/>
             <fault message="psq:PsicquicServiceException" name="PsicquicServiceException"/>
+        </operation>
+
+        <operation name="getProperty">
+            <input message="psq:getProperty" name="getProperty"/>
+            <output message="psq:getPropertyResponse" name="getPropertyResponse"/>
+        </operation>
+
+        <operation name="getProperties">
+            <input message="psq:getProperties" name="getProperties"/>
+            <output message="psq:getPropertiesResponse" name="getPropertiesResponse"/>
         </operation>
     </portType>
 
@@ -492,6 +554,26 @@
             <fault name="PsicquicServiceException">
                 <soap:fault name="PsicquicServiceException" use="literal"/>
             </fault>
+        </operation>
+
+        <operation name="getProperty">
+            <soap:operation soapAction=""/>
+            <input name="getProperty">
+                <soap:body use="literal"/>
+            </input>
+            <output name="getPropertyResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="getProperties">
+            <soap:operation soapAction=""/>
+            <input name="getProperties">
+                <soap:body use="literal"/>
+            </input>
+            <output name="getPropertiesResponse">
+                <soap:body use="literal"/>
+            </output>
         </operation>
     </binding>
 

@@ -15,10 +15,14 @@
  */
 package org.hupo.psi.mi.psicquic.example;
 
-import org.hupo.psi.mi.psicquic.wsclient.QueryOperand;
+
+import org.hupo.psi.mi.psicquic.Property;
 import org.hupo.psi.mi.psicquic.wsclient.UniversalPsicquicClient;
-import psidev.psi.mi.search.SearchResult;
+import org.hupo.psi.mi.psicquic.wsclient.result.MitabSearchResult;
 import psidev.psi.mi.tab.model.BinaryInteraction;
+import psidev.psi.mi.tab.model.builder.PsimiTabVersion;
+
+import java.util.List;
 
 /**
  * Example on how to use the PsicquicClient.
@@ -27,12 +31,27 @@ public class PsicquicClientExample {
 
     public static void main(String[] args) throws Exception {
 
-        // change the enpoint address as needed
-        UniversalPsicquicClient client = new UniversalPsicquicClient("http://www.ebi.ac.uk/Tools/webservices/psicquic/intact/webservices/psicquic");
+        // change the endpoint address as needed
+        UniversalPsicquicClient client = new UniversalPsicquicClient("http://www.ebi.ac.uk/Tools/webservices/psicquic/intact/webservices/psicquic", PsimiTabVersion.v2_7);
 
-        SearchResult<BinaryInteraction> searchResult = client.getByQuery("brca2", 0, 200);
+        MitabSearchResult searchResult = client.getByQuery("brca2", 0, 200);
+        List<BinaryInteraction> interactions = searchResult.getData();
 
-        System.out.println("Interactions: "+searchResult.getTotalCount());
+        System.out.println("Total Number of Interactions for brca2: " + searchResult.getTotalCount() + "\n");
 
+        int count = 0;
+        for (BinaryInteraction<?> interaction : interactions) {
+            count++;
+            System.out.println("First Authors for Interaction No. " + count + ": " +
+                    interaction.getAuthors().get(0).getName());
+        }
+
+        System.out.println("\n----------------------\n");
+        System.out.println("PSICQUIC Implementation Version: " + client.getVersion());
+        System.out.println("Supported SOAP Return Types: " + client.getSupportedReturnTypes().toString());
+        System.out.println("\nProperties:");
+        for (Property property : client.getProperties()) {
+            System.out.println(property.getKey() + " : " + property.getValue());
+        }
     }
 }
