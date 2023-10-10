@@ -5,7 +5,7 @@
     <artifactId>psicquic-client</artifactId>
     <packaging>bundle</packaging>
 
-    <version>1.6.0</version>
+    <version>1.7.0</version>
 
     <name>PSI :: PSICQUIC Client</name>
 
@@ -17,11 +17,10 @@
     </scm>
 
     <properties>
-        <cxf.version>2.6.3</cxf.version>
-        <spring.version>3.1.2.RELEASE</spring.version>
-        <!--Latest version. Frozen project-->
-        <psimi.version>1.8.6</psimi.version>
-        <psicquic.solr.version>1.4.0</psicquic.solr.version>
+        <cxf.version>3.2.14</cxf.version>
+        <spring.version>4.3.30.RELEASE</spring.version>
+        <psimi.version>1.10.0</psimi.version>
+        <psicquic.solr.version>1.5.0</psicquic.solr.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <bundle.namespace>org.hupo.psi.mi.psicquic.wsclient</bundle.namespace>
@@ -58,7 +57,6 @@
                     <!-- see goals wiki page for configuration options -->
                     <!--Whether to allow untracked files when checking if the working tree is clean.-->
                     <allowUntracked>true</allowUntracked>
-                    <noDeploy>true</noDeploy>
                     <username>${git.user}</username>
                     <password>${git.password}</password>
                     <pullMaster>true</pullMaster>
@@ -108,7 +106,7 @@
             <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-codegen-plugin</artifactId>
-                <version>${cxf.version}</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>generate-sources</id>
@@ -142,10 +140,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.10.1</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -164,7 +162,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -176,53 +174,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>JDK6</id>
-            <activation>
-                <jdk>1.6</jdk>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-activation_1.1_spec</artifactId>
-                    <version>1.1</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-annotation_1.0_spec</artifactId>
-                    <version>1.1.1</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-javamail_1.4_spec</artifactId>
-                    <version>1.7.1</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-jaxws_2.1_spec</artifactId>
-                    <version>1.0</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-stax-api_1.0_spec</artifactId>
-                    <version>1.0.1</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
-                    <version>1.1.3</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 
     <dependencies>
         <!-- PSIMI -->
@@ -271,11 +222,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-asm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
             <version>${spring.version}</version>
         </dependency>
@@ -294,71 +240,28 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.6.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.6</version>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.xml</groupId>
-            <artifactId>com.springsource.com.sun.xml.fastinfoset</artifactId>
-            <version>1.2.2</version>
-        </dependency>
-
-        <!-- TODO search the servicemix one-->
-        <dependency>
-            <groupId>org.apache.servicemix.specs</groupId>
-            <artifactId>org.apache.servicemix.specs.stax-api-1.0</artifactId>
-            <version>2.0.0</version>
-        </dependency>
-
         <!-- Apache CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-bundle</artifactId>
+            <artifactId>cxf-rt-frontend-simple</artifactId>
             <version>${cxf.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.wsdl</groupId>
-            <artifactId>com.springsource.javax.wsdl</artifactId>
-            <version>1.6.1</version>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.xml</groupId>
-            <artifactId>com.springsource.org.apache.xml.security</artifactId>
-            <version>1.4.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.objectweb.asm</groupId>
-            <artifactId>com.springsource.org.objectweb.asm</artifactId>
-            <version>3.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>com.springsource.org.bouncycastle.jce</artifactId>
-            <version>1.39.0</version>
-        </dependency>
-
-        <!-- saxon dependency -->
-        <dependency>
-            <groupId>net.sf.saxon</groupId>
-            <artifactId>saxon-dom</artifactId>
-            <version>8.7</version>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
         </dependency>
 
         <!-- Tests -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -366,16 +269,16 @@
     <repositories>
         <repository>
             <id>nexus-ebi-release-repo</id>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
         </repository>
         <repository>
             <id>nexus-ebi-snapshot-repo</id>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
         </repository>
         <repository>
             <id>intact.nexus</id>
             <name>IntAct Nexus</name>
-            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/groups/public/</url>
+            <url>https://www.ebi.ac.uk/intact/maven/nexus/content/groups/public/</url>
         </repository>
     </repositories>
 
@@ -383,7 +286,7 @@
         <pluginRepository>
             <id>intact.nexus</id>
             <name>IntAct Nexus</name>
-            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/groups/public/</url>
+            <url>https://www.ebi.ac.uk/intact/maven/nexus/content/groups/public/</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -392,14 +295,14 @@
         <repository>
             <id>pst-release</id>
             <name>EBI Nexus Repository</name>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-release</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-release/</url>
         </repository>
         <!-- EBI SNAPSHOT repo -->
         <snapshotRepository>
             <uniqueVersion>false</uniqueVersion>
             <id>pst-snapshots</id>
             <name>EBI Nexus Snapshots Repository</name>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
